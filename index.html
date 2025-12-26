@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Year Surprise ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    background:#0f0f1a;
+    color:#ffd700;
+    font-family:Arial, sans-serif;
+    text-align:center;
+    margin:0;
+    overflow:hidden;
+}
+
+/* Pages */
+.page{
+    position:absolute;
+    width:100%;
+    height:100vh;
+    top:0;
+    left:0;
+    padding:30px;
+    transition:all 1s ease;
+}
+#page1{ background:#0f0f1a; }
+#page2{
+    background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+    left:100%;
+    color:white;
+}
+
+/* Inputs & Buttons */
+input,button{
+    padding:12px 20px;
+    font-size:18px;
+    border-radius:10px;
+    border:none;
+    margin:10px;
+}
+button{
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+}
+button:hover{ transform:scale(1.05); }
+
+/* 3D Text */
+.text3d{
+    font-size:30px;
+    color:yellow;
+    font-weight:bold;
+    text-shadow:
+      1px 1px 0 #e6c200,
+      2px 2px 0 #ccac00,
+      3px 3px 0 #b39600;
+}
+
+/* Image reveal */
+#wifeImg{
+    width:220px;
+    border-radius:20px;
+    margin:20px auto;
+    display:none;
+    filter:blur(12px);
+    transform:scale(0.7);
+    opacity:0;
+    transition:all 1.2s ease;
+    box-shadow:0 0 30px pink;
+}
+#wifeImg.show{
+    filter:blur(0);
+    transform:scale(1);
+    opacity:1;
+}
+
+/* Hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:22px;
+    animation:floatUp 5s linear infinite;
+}
+@keyframes floatUp{
+    0%{ transform:translateY(0); opacity:1;}
+    100%{ transform:translateY(-100vh); opacity:0;}
+}
+
+/* Fireworks */
+.firework{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    animation:explode 1.2s ease-out forwards;
+    pointer-events:none;
+}
+@keyframes explode{
+    0%{ transform:scale(0.2); opacity:1;}
+    100%{ transform:scale(2.5); opacity:0;}
+}
+
+/* Shayari */
+.shayari{
+    font-size:22px;
+    margin:25px 0;
+    line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+
+<h1>🎉 Happy New Year 🎉</h1>
+
+<input id="nameInput" placeholder="Enter Name">
+<br>
+<button onclick="showGreeting()">Show Greeting</button>
+
+<div id="greeting"></div>
+
+<button id="showImgBtn" onclick="showImage()" style="display:none;">Show Image ❤️</button>
+
+<img id="wifeImg" src="C:\Users\Asus\Downloads\khushi.jpg.jpeg" alt="My Queen ❤️">
+
+<br>
+<button id="moreBtn" onclick="goNextPage()" style="display:none;">More Surprise 🎁</button>
+
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+
+<h1>💖 My Love For You 💖</h1>
+
+<div class="shayari">1.
+Calendar badlega, saal badlega,<br>
+Par mera pyaar kabhi nahi badlega ❤️<br>
+Aap meri har subah ho,<br>
+Aur har raat ka sukoon 🌙<br>
+HAPPY NEW YEAR MERI WIFEY</div>
+
+<div class="shayari">2.
+Is naye saal me bhi<br>
+Mujhe kuch nahi chahiye…<br>
+Bas aapka saath, aapki hasi<br>
+Aur thoda sa aapka gussa 🫶❤️
+</div>
+
+<div class="shayari">3.
+Happy New Year meri jaan,<br>
+meri zindagi, meri rani,<br>
+meri everything 💛
+</div>
+<div class="shayari">4.
+Let's celebrate together,<br>
+I LOOOOOVEEE YOU FOREVER MERI RANI<br>
+I AM FOREVER YOUR'S AND WITH YOU IN EVERY SITUATION OF LIFE 💛
+</div>
+
+<script>
+function showGreeting(){
+    let name=document.getElementById("nameInput").value.trim();
+    if(name===""){
+        alert("Name likho meri jaan ❤️");
+        return;
+    }
+
+    let valid=["Aditya","aditya","Khushi","khushi","KHUSHI"];
+    if(!valid.includes(name)){
+        alert("Only for my special person ❤️");
+        return;
+    }
+
+    document.getElementById("greeting").innerHTML =
+      `<div class="text3d" id="typingText"></div>`;
+
+    typeEffect(`Happy New Year my cute wifey ${name} 💛`);
+    document.getElementById("showImgBtn").style.display="inline-block";
+}
+
+function typeEffect(text){
+    let i=0;
+    let target=document.getElementById("typingText");
+    target.innerHTML="";
+    let interval=setInterval(()=>{
+        target.innerHTML+=text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(interval);
+    },80);
+}
+
+function showImage(){
+    let img=document.getElementById("wifeImg");
+    img.style.display="block";
+    setTimeout(()=>img.classList.add("show"),100);
+
+    document.getElementById("showImgBtn").style.display="none";
+    document.getElementById("moreBtn").style.display="inline-block";
+
+    startHearts();
+    launchFireworks();
+}
+
+/* NEXT PAGE TRANSITION */
+function goNextPage(){
+    document.getElementById("page1").style.left="-100%";
+    document.getElementById("page2").style.left="0";
+}
+
+/* Hearts */
+function startHearts(){
+    for(let i=0;i<30;i++){
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(3+Math.random()*3)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    }
+}
+
+/* Fireworks */
+function launchFireworks(){
+    for(let i=0;i<45;i++){
+        let fw=document.createElement("div");
+        fw.className="firework";
+        fw.style.left=Math.random()*100+"vw";
+        fw.style.top=Math.random()*60+"vh";
+        fw.style.background=`hsl(${Math.random()*360},100%,60%)`;
+        document.body.appendChild(fw);
+        setTimeout(()=>fw.remove(),1200);
+    }
+}
+</script>
+
+</body>
+</html>
