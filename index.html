@@ -130,29 +130,41 @@ button:hover{ transform:scale(1.05); }
     transition:opacity 1s ease;
 }
 
-#loveFinal {
-    font-size:18px;
+/* Final Love Animation BELOW Shayari */
+#loveFinal{
+    font-size:28px;
     font-weight:bold;
     color:white; 
-    text-align:center;
-    margin:20px auto;
+    text-shadow:
+      0 0 10px #f0ec0a,
+      0 0 20px #f0ec0a,
+      0 0 40px #f0ec0a;
     opacity:0;
-    display:none; /* initially hidden */
-    transition: opacity 1.5s ease, transform 0.8s ease;
+    display:none;
+    margin:20px auto;
+    transition:opacity 1.5s ease, transform 0.8s ease;
 }
 
-#loveFinal.show {
-    display:block;
+#loveFinal.show{
     opacity:1;
     transform: scale(1.2);
-    animation: lovePop 0.8s forwards;
+    animation:lovePop 0.8s forwards;
 }
 
-@keyframes lovePop {
+@keyframes lovePop{
     0% { transform: scale(0.5); opacity:0; }
     50% { transform: scale(1.3); opacity:1; }
     100% { transform: scale(1); opacity:1; }
 }
+
+/* Responsive Fix */
+@media(max-width:500px){
+    .text3d{ font-size:20px; }
+    .shayari{ font-size:16px; }
+    #loveFinal{ font-size:24px; }
+    #wifeImg{ width:90%; max-width:220px; }
+}
+
 
 </style>
 </head>
@@ -214,9 +226,13 @@ I am with you , for you everysec and in every situations of life
 <script>
 let soundEnabled=false;
 
-/* Sound */
 function enableSound(){
-    fireSound.play().then(()=>{ fireSound.pause(); soundEnabled=true; });
+    fireSound.play().then(()=>{ 
+        fireSound.pause(); 
+        soundEnabled=true; 
+        alert("Sound Enabled ❤️");
+    });
+
 }
 
 /* Greeting */
@@ -283,36 +299,25 @@ function startFireworks(){
     setTimeout(()=>clearInterval(i),4000);
 }
 
-/* Hearts */
-function startHearts(){
-    for(let i=0;i<20;i++){
-        let h=document.createElement("div");
-        h.className="heart";
-        h.innerHTML="❤️";
-        h.style.left=Math.random()*95+"vw";
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),5000);
-    }
-}
 
 /* Next Page */
 function goNextPage(){
     page1.style.left="-100%";
     page2.style.left="0";
-    showShayarisSequentially(); // ye call karenge page2 me jane ke baad
+    showShayarisSequentially();
 }
 
 function showShayarisSequentially(){
     const shayaris = document.querySelectorAll("#page2 .shayari");
-    let index = 0;
+    let index=0;
 
     function showNext(){
         if(index < shayaris.length){
-            shayaris[index].style.opacity = 1;
+            shayaris[index].style.opacity=1;
             index++;
-            setTimeout(showNext, 2000); // 2 sec har shayari
+            setTimeout(showNext,2000);
         } else {
-            showLove(); // ✅ last shayari ke baad show
+            showLove();
         }
     }
     showNext();
@@ -320,9 +325,22 @@ function showShayarisSequentially(){
 
 function showLove(){
     const love = document.getElementById("loveFinal");
-    love.style.display = "block";
-    setTimeout(()=>love.classList.add("show"), 100);
+    love.style.display="block";
+    setTimeout(()=>love.classList.add("show"),100);
     startHearts();
+}
+
+    /* Hearts */
+function startHearts(){
+    for(let i=0;i<20;i++){
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*95+"vw";
+        h.style.animationDuration=(3+Math.random()*2.5)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    }
 }
 
 
@@ -330,6 +348,7 @@ function showLove(){
 
 </body>
 </html>
+
 
 
 
