@@ -228,7 +228,8 @@ I am with you , for you everysec and in every situations of life
 <script>
 const fireSound = document.getElementById("fireSound");
 let soundEnabled = false;
-
+const fireFx = new Audio("./fireworks.mp3");
+    fireFx.volume = 0.6 ;
 function enableSound(){
     fireSound.volume = 0.6;
     fireSound.currentTime = 0;
@@ -236,8 +237,6 @@ function enableSound(){
     fireSound.play().then(()=>{
         soundEnabled = true;
         alert("Sound Enabled ❤️");
-    }).catch(()=>{
-        alert("Tap again to enable sound 🔊");
     });
 }
 
@@ -302,6 +301,11 @@ function launchFirework(){
     fw.className="firework";
     fw.style.left=Math.random()*90+"vw";
     fw.style.top=Math.random()*50+"vh";
+    if(soundEnabled){
+        fireSound.currentTime = 0;
+        fireSound.play();
+    }
+
     let color=`hsl(${Math.random()*360},100%,60%)`;
     for(let i=0;i<80;i++){
         let s=document.createElement("div");
@@ -370,6 +374,7 @@ function startHearts(){
 
 </body>
 </html>
+
 
 
 
