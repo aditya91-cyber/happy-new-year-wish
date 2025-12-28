@@ -236,6 +236,8 @@ function enableSound(){
     fireSound.play().then(()=>{
         soundEnabled = true;
         alert("Sound Enabled ❤️");
+    }).catch(()=>{
+        alert("Tap again to enable sound 🔊");
     });
 }
 
@@ -368,6 +370,7 @@ function startHearts(){
 
 </body>
 </html>
+
 
 
 
