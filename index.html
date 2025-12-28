@@ -74,23 +74,89 @@ button:hover{ transform:scale(1.05); }
 }
 
 /* Image */
+/* ===== PHOTO LAYOUT FIX ===== */
+
+.photoWrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:6px;                /* 👈 space control */
+    margin-top:20px;
+    max-width:100%;
+    overflow:hidden;
+}
+
+/* centre pic */
 #wifeImg{
     width:80%;
-    max-width:250px;
+    max-width:230px;
     border-radius:20px;
-    display:none;
-    margin:20px auto;
     filter:blur(10px);
     transform:scale(0.7);
     opacity:0;
     transition:1.2s ease;
     box-shadow:0 0 30px pink;
 }
+
+/* side pics */
+.sidePic{
+    width:70px;
+    height:100px;
+    object-fit:cover;
+    border-radius:14px;
+    opacity:0;
+    transform:scale(0.6);
+    transition:1s ease;
+    box-shadow:0 0 15px rgba(255,105,180,0.8);
+}
+
+/* tilt + close spacing */
+.leftPic{
+    transform:translateX(8px) rotate(-8deg) scale(0.6);
+}
+.rightPic{
+    transform:translateX(-8px) rotate(8deg) scale(0.6);
+}
+
+/* show animation */
+.photoWrap.show .sidePic{
+    opacity:1;
+    transform:rotate(0) scale(1);
+}
 #wifeImg.show{
     filter:blur(0);
     transform:scale(1);
     opacity:1;
 }
+
+/* 📱 MOBILE PERFECT FIT */
+@media(max-width:500px){
+    .photoWrap{
+        gap:4px;
+    }
+    .sidePic{
+        width:60px;
+        height:90px;
+    }
+    #wifeImg{
+        max-width:200px;
+    }
+}
+
+/* show animation */
+.photoWrap.show .sidePic{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* mobile fix */
+@media(max-width:500px){
+    .sidePic{
+        width:70px;
+        height:100px;
+    }
+}
+
 
 /* Hearts */
 .heart{
@@ -189,7 +255,14 @@ button:hover{ transform:scale(1.05); }
 Show Image ❤️
 </button>
 
-<img id="wifeImg" src="./wifey.jpeg">
+<div class="photoWrap" id="photoWrap">
+    <img class="sidePic leftPic" src="side1.jpg">
+
+    <img id="wifeImg" src="./wifey.jpg">
+
+    <img class="sidePic rightPic" src="side2.jpg">
+</div>
+
 
 <br>
 <button id="moreBtn" onclick="goNextPage()" style="display:none;">
@@ -289,12 +362,14 @@ function startFireworks(){
 }
 
 function showImage(){
+    document.getElementById("photoWrap").classList.add("show");
+
     wifeImg.style.display="block";
     setTimeout(()=>wifeImg.classList.add("show"),100);
-    moreBtn.style.display="inline-block"; 
+
+    moreBtn.style.display="inline-block";
     startHearts();
 }
-
 function goNextPage(){
     page1.style.left="-100%";
     page2.style.left="0";
@@ -339,6 +414,7 @@ function startHearts(){
 
 </body>
 </html>
+
 
 
 
