@@ -232,11 +232,14 @@ const fireFx = new Audio("./fireworks.mp3");
     fireFx.volume = 0.6 ;
     
 function enableSound(){
-    fireSound.muted = true;
+    fireSound.volume = 0.6;
+    fireSound.currentTime = 0;
+
     fireSound.play().then(()=>{
-        fireSound.pause();
         soundEnabled = true;
         alert("Sound Enabled ❤️");
+    }).catch(()=>{
+        alert("Tap again to enable sound 🔊");
     });
 }
     
