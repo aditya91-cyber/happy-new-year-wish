@@ -230,17 +230,16 @@ const fireSound = document.getElementById("fireSound");
 let soundEnabled = false;
 const fireFx = new Audio("./fireworks.mp3");
     fireFx.volume = 0.6 ;
+    
 function enableSound(){
-    fireSound.volume = 0.6;
-    fireSound.currentTime = 0;
-
+    fireSound.muted = true;
     fireSound.play().then(()=>{
+        fireSound.pause();
         soundEnabled = true;
         alert("Sound Enabled ❤️");
     });
 }
-
-
+    
 
 /* Greeting */
 function showGreeting(){
