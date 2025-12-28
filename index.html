@@ -27,17 +27,17 @@ body{
     box-sizing:border-box;
 }
 
-/* Page 1 background */
+/* PAGE 1 BACKGROUND */
 #page1::before{
     content:"";
     position:absolute;
     inset:0;
     background:url("background.jpg") center/cover no-repeat;
-    filter:blur(8px);
+    filter:blur(10px);
     z-index:-1;
 }
 
-/* Page 2 */
+/* PAGE 2 */
 #page2{
     left:100%;
     background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
@@ -45,7 +45,7 @@ body{
     overflow-y:auto;
 }
 
-/* Inputs & Buttons */
+/* Buttons & Inputs */
 input,button{
     padding:10px 16px;
     font-size:16px;
@@ -63,26 +63,25 @@ button:hover{ transform:scale(1.05); }
 
 /* 3D Text */
 .text3d{
-    font-size:26px;
-    color:yellow;
+    font-size:28px;
+    color:red;
     font-weight:bold;
-    text-shadow:1px 1px 0 red;
+    text-shadow:1px 1px 0 #87CEEB;
 }
 
-/* ===== SLIDER ===== */
+/* 🔥 SLIDER (FINAL FIX) */
 .slider{
-    display:none;
     width:100%;
-    max-width:220px;
-    margin:20px auto;
+    max-width:260px;
+    margin:25px auto;
     overflow:hidden;
     border-radius:16px;
-    box-shadow:0 0 25px pink;
+    box-shadow:0 0 25px rgba(255,105,180,0.6);
 }
 
 .slides{
     display:flex;
-    transition:transform 0.4s ease;
+    transition:transform 0.6s ease-in-out;
 }
 
 .slides img{
@@ -90,6 +89,12 @@ button:hover{ transform:scale(1.05); }
     flex-shrink:0;
     object-fit:cover;
     border-radius:16px;
+}
+
+/* Mobile */
+@media(max-width:500px){
+    .slider{ max-width:220px; }
+    .text3d{ font-size:20px; }
 }
 
 /* Hearts */
@@ -105,11 +110,7 @@ button:hover{ transform:scale(1.05); }
 }
 
 /* Fireworks */
-.firework{
-    position:fixed;
-    pointer-events:none;
-    z-index:9999;
-}
+.firework{ position:fixed; pointer-events:none; z-index:9999; }
 .spark{
     position:absolute;
     width:4px;
@@ -118,10 +119,7 @@ button:hover{ transform:scale(1.05); }
     animation:shoot 1.4s ease-out forwards;
 }
 @keyframes shoot{
-    to{
-        transform:translate(var(--x),var(--y)) scale(0.3);
-        opacity:0;
-    }
+    to{ transform:translate(var(--x),var(--y)) scale(0.3); opacity:0; }
 }
 
 /* Shayari */
@@ -132,97 +130,101 @@ button:hover{ transform:scale(1.05); }
     transition:opacity 1s ease;
 }
 
-/* Love text */
 #loveFinal{
-    font-size:20px;
+    font-size:22px;
     font-weight:bold;
-    opacity:0;
     display:none;
+    opacity:0;
     transition:1s;
 }
 #loveFinal.show{ opacity:1; }
-
-/* Mobile */
-@media(max-width:500px){
-    .slider{ max-width:200px; }
-}
 </style>
 </head>
 
 <body>
 
-<audio id="fireSound" src="fireworks.mp3" preload="auto"></audio>
+<audio id="fireSound" src="./fireworks.mp3" preload="auto"></audio>
 
 <div class="page" id="page1">
 <h1>🎉 Happy New Year 🎉</h1>
 
 <button onclick="enableSound()">🔊 Enable Sound</button>
 
-<input id="nameInput" placeholder="Aapna Name likho ❤️">
+<input id="nameInput" placeholder="Aapna Name likho Rani Jan❤️">
 <button onclick="showGreeting()">Show Greeting</button>
 
 <div id="greeting"></div>
 
-<button id="showImgBtn" onclick="showImage()" style="display:none;">
-Show Image ❤️
-</button>
+<button id="showImgBtn" onclick="showSlider()" style="display:none;">Show Image ❤️</button>
 
-<!-- SLIDER -->
-<div class="slider">
+<!-- 🔥 SLIDER -->
+<div class="slider" id="slider" style="display:none;">
     <div class="slides" id="slides">
-        <img src="wifey1.jpeg">
-        <img src="wifey.jpeg">
-        <img src="wifey2.jpeg">
+        <img src="./wifey1.jpeg">
+        <img src="./wifey.jpeg">
+        <img src="./wifey2.jpeg">
     </div>
 </div>
 
-<button id="moreBtn" onclick="goNextPage()" style="display:none;">
-More Surprise 🎁
-</button>
+<button id="moreBtn" onclick="goNextPage()" style="display:none;">More Surprise 🎁</button>
 </div>
 
 <div class="page" id="page2">
 <h1>💖 My Love For You 💖</h1>
 
-<div class="shayari">Calendar badlega, saal badlega,<br>par mera pyaar nahi ❤️</div>
-<div class="shayari">Is naye saal me bas aapka saath chahiye 🫶</div>
+<div class="shayari">Calendar badlega, saal badlega,<br>Par mera pyaar kabhi nahi badlega ❤️</div>
+<div class="shayari">Bas hamesha aapka saath chahiye 🫶</div>
 <div class="shayari">Happy New Year meri jaan 💛</div>
 
-<div id="loveFinal">I LOVE YOU MY WIFEY ❤️</div>
+<div id="loveFinal">I LOVE YOU TOO MUCH MY WIFEY ❤️</div>
 </div>
 
 <script>
 let soundEnabled=false;
-let slider=document.getElementById("slides");
-let index=1;
-let startX=0;
-let autoSlide;
 
 /* Sound */
 function enableSound(){
-    fireSound.play().then(()=>{
-        fireSound.pause();
-        soundEnabled=true;
-        alert("Sound Enabled ❤️");
-    });
+    fireSound.play().then(()=>{ fireSound.pause(); soundEnabled=true; });
 }
 
 /* Greeting */
 function showGreeting(){
     let name=nameInput.value.trim();
-    if(name.toLowerCase()!=="khushi") return alert("Only for my special one ❤️");
+    if(name.toLowerCase()!=="khushi") return alert("Only for my special person ❤️");
 
-    greeting.innerHTML=`<div class="text3d" id="typingText"></div>`;
-    let text=`Happy New Year my cute wifey ${name} 💛`;
-    let i=0;
-    let t=setInterval(()=>{
-        typingText.innerHTML+=text[i++];
-        if(i>=text.length) clearInterval(t);
-    },80);
-
+    greeting.innerHTML=`<div class="text3d">Happy New Year my wifey ${name} ❤️</div>`;
     startFireworks();
     showImgBtn.style.display="block";
 }
+
+/* Show Slider */
+function showSlider(){
+    document.getElementById("slider").style.display="block";
+    moreBtn.style.display="block";
+    startHearts();
+}
+
+/* Auto Slider */
+let index=0;
+const slides=document.getElementById("slides");
+const total=slides.children.length;
+
+setInterval(()=>{
+    index=(index+1)%total;
+    slides.style.transform=`translateX(-${index*100}%)`;
+},2500);
+
+/* Swipe Support */
+let startX=0;
+slides.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+slides.addEventListener("touchend",e=>{
+    let endX=e.changedTouches[0].clientX;
+    if(startX-endX>50) index++;
+    if(endX-startX>50) index--;
+    if(index<0) index=total-1;
+    if(index>=total) index=0;
+    slides.style.transform=`translateX(-${index*100}%)`;
+});
 
 /* Fireworks */
 function launchFirework(){
@@ -231,7 +233,6 @@ function launchFirework(){
     fw.style.left=Math.random()*90+"vw";
     fw.style.top=Math.random()*50+"vh";
     let color=`hsl(${Math.random()*360},100%,60%)`;
-
     for(let i=0;i<80;i++){
         let s=document.createElement("div");
         s.className="spark";
@@ -245,58 +246,9 @@ function launchFirework(){
     document.body.appendChild(fw);
     setTimeout(()=>fw.remove(),1500);
 }
-
 function startFireworks(){
-    if(soundEnabled){ fireSound.currentTime=0; fireSound.play(); }
     let i=setInterval(launchFirework,200);
-    setTimeout(()=>{ clearInterval(i); fireSound.pause(); },6000);
-}
-
-/* Show slider */
-function showImage(){
-    document.querySelector(".slider").style.display="block";
-    moreBtn.style.display="block";
-    startAutoSlide();
-    startHearts();
-}
-
-/* Auto slide + swipe */
-function startAutoSlide(){
-    slider.style.transform="translateX(-100%)";
-
-    autoSlide=setInterval(()=>{
-        index++;
-        if(index>2) index=0;
-        slider.style.transform=`translateX(-${index*100}%)`;
-    },3000);
-}
-
-slider.addEventListener("touchstart",e=>{
-    clearInterval(autoSlide);
-    startX=e.touches[0].clientX;
-});
-slider.addEventListener("touchend",e=>{
-    let diff=e.changedTouches[0].clientX-startX;
-    if(diff>50 && index>0) index--;
-    else if(diff<-50 && index<2) index++;
-    slider.style.transform=`translateX(-${index*100}%)`;
-    startAutoSlide();
-});
-
-/* Page change */
-function goNextPage(){
-    page1.style.left="-100%";
-    page2.style.left="0";
-    let s=document.querySelectorAll(".shayari");
-    let i=0;
-    let t=setInterval(()=>{
-        if(i<s.length){ s[i].style.opacity=1; i++; }
-        else{
-            clearInterval(t);
-            loveFinal.style.display="block";
-            setTimeout(()=>loveFinal.classList.add("show"),200);
-        }
-    },2000);
+    setTimeout(()=>clearInterval(i),4000);
 }
 
 /* Hearts */
@@ -310,38 +262,20 @@ function startHearts(){
         setTimeout(()=>h.remove(),5000);
     }
 }
+
+/* Next Page */
+function goNextPage(){
+    page1.style.left="-100%";
+    page2.style.left="0";
+    document.querySelectorAll(".shayari").forEach((s,i)=>{
+        setTimeout(()=>s.style.opacity=1,i*1500);
+    });
+    setTimeout(()=>{
+        loveFinal.style.display="block";
+        loveFinal.classList.add("show");
+    },5000);
+}
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
