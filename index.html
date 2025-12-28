@@ -236,7 +236,7 @@ function enableSound(){
     fireSound.currentTime = 0;
 
     fireSound.play().then(()=>{
-        soundMuted = true;
+        fireSound.muted = true;
         alert("Sound Enabled ❤️");
     }).catch(()=>{
         alert("Tap again to enable sound 🔊");
