@@ -30,12 +30,11 @@ body{
 /* PAGE 1 BACKGROUND */
 #page1::before{
     content:"";
-    position:relative;
+    position:absolute;
     inset:0;
     background:url("background.jpg") center/cover no-repeat;
     filter:blur(10px);
-    z-index:-1;
-    overflow:hidden;
+    z-index:0;
 }
 
 /* PAGE 2 */
@@ -380,6 +379,7 @@ function startHearts(){
 
 </body>
 </html>
+
 
 
 
