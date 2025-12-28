@@ -240,9 +240,11 @@ function showGreeting(){
     let name=nameInput.value.trim();
     if(name.toLowerCase()!=="khushi") return alert("Only for my special person ❤️");
 
-    greeting.innerHTML=`<div class="text3d">Happy New Year my wifey ${name} ❤️</div>`;
+   greeting.innerHTML=`<div class="text3d" id="typingText"></div>`;
+    typeEffect(`Happy New Year my cute wifey ${name} 💛`);
+
     startFireworks();
-    showImgBtn.style.display="block";
+    showImgBtn.style.display="inline-block";
 }
 
 /* Show Slider */
@@ -348,6 +350,7 @@ function startHearts(){
 
 </body>
 </html>
+
 
 
 
