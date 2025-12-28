@@ -237,15 +237,28 @@ function enableSound(){
 
 /* Greeting */
 function showGreeting(){
-    let name=nameInput.value.trim();
-    if(name.toLowerCase()!=="khushi") return alert("Only for my special person ❤️");
+    let name = nameInput.value.trim();
+    if(!name) return alert("Name likho meri rani jaan ❤️");
 
-   greeting.innerHTML=`<div class="text3d" id="typingText"></div>`;
-    typeEffect(`Happy New Year My cute wifey ${name} 💛`);
+    if(name.toLowerCase() !== "khushi"){
+        return alert("Only for my special person ❤️");
+    }
+
+    greeting.innerHTML=`<div class="text3d" id="typingText"></div>`;
+    typeEffect(`Happy New Year my cute wifey ${name} 💛`);
 
     startFireworks();
-    showImgBtn.style.display="inline-block";
+    showImgBtn.style.display="inline-block"; 
 }
+
+function typeEffect(text){
+    let i=0, t=document.getElementById("typingText");
+    let inter=setInterval(()=>{
+        t.innerHTML+=text[i++];
+        if(i>=text.length) clearInterval(inter);
+    },80);
+}
+
 
 /* Show Slider */
 function showSlider(){
@@ -350,6 +363,7 @@ function startHearts(){
 
 </body>
 </html>
+
 
 
 
