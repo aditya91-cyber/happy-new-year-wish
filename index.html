@@ -130,26 +130,28 @@ button:hover{ transform:scale(1.05); }
     transition:opacity 1s ease;
 }
 
-#loveFinal{
-    font-size:22px;
+#loveFinal {
+    font-size:18px;
     font-weight:bold;
-    display:none;
+    color:white; 
+    text-align:center;
+    margin:20px auto;
     opacity:0;
-    transform:scale(0.5);
-    transition:opacity 1s ease;
+    display:none; /* initially hidden */
+    transition: opacity 1.5s ease, transform 0.8s ease;
 }
 
-#loveFinal.show{
+#loveFinal.show {
     display:block;
     opacity:1;
-    animation:lovePop 0.8s ease forwards;
+    transform: scale(1.2);
+    animation: lovePop 0.8s forwards;
 }
 
-/* 🔥 LOVE POP ANIMATION */
-@keyframes lovePop{
-    0%{ transform:scale(0.4); opacity:0; }
-    60%{ transform:scale(1.3); opacity:1; }
-    100%{ transform:scale(1); opacity:1; }
+@keyframes lovePop {
+    0% { transform: scale(0.5); opacity:0; }
+    50% { transform: scale(1.3); opacity:1; }
+    100% { transform: scale(1); opacity:1; }
 }
 
 </style>
@@ -205,7 +207,8 @@ meri everything 💛<br>
 
 <div id="loveFinal">I LOVE YOU TOO MUCH MY WIFEY ❤️<br>
 I AM YOUR'S FOREVER🫶<br>
-I am with you , for you everysec and in every situations of life </div>
+I am with you , for you everysec and in every situations of life 
+</div>
 </div>
 
 <script>
@@ -307,9 +310,9 @@ function showShayarisSequentially(){
         if(index < shayaris.length){
             shayaris[index].style.opacity = 1;
             index++;
-            setTimeout(showNext, 2000); // 2 sec har shayari ke liye
+            setTimeout(showNext, 2000); // 2 sec har shayari
         } else {
-            showLove(); // last shayari ke baad love pop
+            showLove(); // ✅ last shayari ke baad show
         }
     }
     showNext();
@@ -317,15 +320,17 @@ function showShayarisSequentially(){
 
 function showLove(){
     const love = document.getElementById("loveFinal");
-    love.style.display = "block"; // block zaruri
-    setTimeout(()=>love.classList.add("show"), 100); // class add karke animation
-    startHearts(); // optional hearts animation
+    love.style.display = "block";
+    setTimeout(()=>love.classList.add("show"), 100);
+    startHearts();
 }
+
     }
 </script>
 
 </body>
 </html>
+
 
 
 
