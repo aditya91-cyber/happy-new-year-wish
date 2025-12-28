@@ -296,17 +296,36 @@ function startHearts(){
 function goNextPage(){
     page1.style.left="-100%";
     page2.style.left="0";
-    document.querySelectorAll(".shayari").forEach((s,i)=>{
-        setTimeout(()=>s.style.opacity=1,i*1500);
-    });
-    setTimeout(()=>{
-        loveFinal.style.display="block";
-        loveFinal.classList.add("show");
-    },5000);
+    showShayarisSequentially(); // ye call karenge page2 me jane ke baad
 }
+
+function showShayarisSequentially(){
+    const shayaris = document.querySelectorAll("#page2 .shayari");
+    let index = 0;
+
+    function showNext(){
+        if(index < shayaris.length){
+            shayaris[index].style.opacity = 1;
+            index++;
+            setTimeout(showNext, 2000); // 2 sec har shayari ke liye
+        } else {
+            showLove(); // last shayari ke baad love pop
+        }
+    }
+    showNext();
+}
+
+function showLove(){
+    const love = document.getElementById("loveFinal");
+    love.style.display = "block"; // block zaruri
+    setTimeout(()=>love.classList.add("show"), 100); // class add karke animation
+    startHearts(); // optional hearts animation
+}
+    }
 </script>
 
 </body>
 </html>
+
 
 
