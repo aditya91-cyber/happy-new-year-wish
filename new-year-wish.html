@@ -238,13 +238,31 @@ function enableSound(){
 
 /* Greeting */
 function showGreeting(){
-    let name=nameInput.value.trim();
-    if(name.toLowerCase()!=="khushi") return alert("Only for my special person ❤️");
+    let name = nameInput.value.trim();
+    if(name.toLowerCase() !== "khushi")
+        return alert("Only for my special person ❤️");
 
-    greeting.innerHTML=`<div class="text3d">Happy New Year my wifey ${name} ❤️</div>`;
+    const text = `Happy New Year My Wifey ${name} ❤️`;
+    greeting.innerHTML = `<div class="typing" id="typeText"></div>`;
+
+    let i = 0;
+    const speed = 80; // typing speed
+
+    function type(){
+        if(i < text.length){
+            typeText.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }else{
+            typeText.style.borderRight = "none";
+        }
+    }
+
+    type();
     startFireworks();
     showImgBtn.style.display="block";
 }
+
 
 /* Show Slider */
 function showSlider(){
@@ -350,3 +368,4 @@ function startHearts(){
 </body>
 
 </html>
+
