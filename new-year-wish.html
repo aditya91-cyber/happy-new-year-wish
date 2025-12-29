@@ -248,14 +248,31 @@ function enableSound(){
 
 }
 
-/* Greeting */ function showGreeting(){ let name = nameInput.value.trim(); if(name.toLowerCase() !== "khushi") return alert("Only for my special person ❤️");
-                                       const text = Happy New Year My Wifey ${name} ❤️; // 🔥 IMPORTANT: 3D outer + typing inner 
-                                       greeting.innerHTML = <div class="text3d"> <span id="typeText" class="typing"></span> </div> ; 
-                                       let i = 0; 
-                                       const speed = 80;
-                                       function type(){ if(i < text.length){ document.getElementById("typeText").textContent += text.charAt(i);
-                                        i++; setTimeout(type, speed); } }
-                                       type(); // ⬅️ typing start startFireworks(); // ⬅️ fireworks showImgBtn.style.display="block"; }
+function showGreeting(){
+    let name = nameInput.value.trim();
+    if(name.toLowerCase() !== "khushi")
+        return alert("Only for my special person ❤️");
+
+    const text = `Happy New Year my wifey ${name} ❤️`;
+    greeting.innerHTML = `<div class="typing" id="typeText"></div>`;
+
+    let i = 0;
+    const speed = 80; // typing speed
+
+    function type(){
+        if(i < text.length){
+            typeText.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }else{
+            typeText.style.borderRight = "none";
+        }
+    }
+
+    type();
+    startFireworks();
+    showImgBtn.style.display="block";
+}
 
 
 /* Show Slider */
@@ -362,6 +379,7 @@ function startHearts(){
 </body>
 
 </html>
+
 
 
 
