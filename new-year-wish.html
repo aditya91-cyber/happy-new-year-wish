@@ -15,7 +15,6 @@ body{
     overflow-x:hidden;
 }
 
-/* Pages */
 .page{
     position:absolute;
     width:100%;
@@ -27,7 +26,6 @@ body{
     box-sizing:border-box;
 }
 
-/* PAGE 1 BACKGROUND */
 #page1::before{
     content:"";
     position:absolute;
@@ -37,7 +35,6 @@ body{
     z-index:-1;
 }
 
-/* PAGE 2 */
 #page2{
     left:100%;
     background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
@@ -45,23 +42,19 @@ body{
     overflow-y:auto;
 }
 
-/* Buttons & Inputs */
-input,button{
+button{
     padding:10px 16px;
     font-size:16px;
     border-radius:10px;
     border:none;
     margin:10px auto;
     display:block;
-}
-button{
     background:#ff4d6d;
     color:white;
     cursor:pointer;
 }
 button:hover{ transform:scale(1.05); }
 
-/* 3D Text */
 .text3d{
     font-size:28px;
     color:red;
@@ -76,41 +69,8 @@ button:hover{ transform:scale(1.05); }
     padding-right:6px;
     animation: blink 0.7s infinite;
 }
+@keyframes blink{50%{ border-color: transparent; }}
 
-@keyframes blink{
-    50%{ border-color: transparent; }
-}
-
-    
-/* 🔥 SLIDER (FINAL FIX) */
-.slider{
-    width:100%;
-    max-width:260px;
-    margin:25px auto;
-    overflow:hidden;
-    border-radius:16px;
-    box-shadow:0 0 25px rgba(255,105,180,0.6);
-}
-
-.slides{
-    display:flex;
-    transition:transform 0.6s ease-in-out;
-}
-
-.slides img{
-    width:100%;
-    flex-shrink:0;
-    object-fit:cover;
-    border-radius:16px;
-}
-
-/* Mobile */
-@media(max-width:500px){
-    .slider{ max-width:220px; }
-    .text3d{ font-size:20px; }
-}
-
-/* Hearts */
 .heart{
     position:fixed;
     bottom:-20px;
@@ -118,11 +78,8 @@ button:hover{ transform:scale(1.05); }
     animation:floatUp 5s linear infinite;
     z-index:9998;
 }
-@keyframes floatUp{
-    to{ transform:translateY(-100vh); opacity:0; }
-}
+@keyframes floatUp{to{ transform:translateY(-100vh); opacity:0;}}
 
-/* Fireworks */
 .firework{ position:fixed; pointer-events:none; z-index:9999; }
 .spark{
     position:absolute;
@@ -131,11 +88,8 @@ button:hover{ transform:scale(1.05); }
     border-radius:50%;
     animation:shoot 1.4s ease-out forwards;
 }
-@keyframes shoot{
-    to{ transform:translate(var(--x),var(--y)) scale(0.3); opacity:0; }
-}
+@keyframes shoot{to{ transform:translate(var(--x),var(--y)) scale(0.3); opacity:0;}}
 
-/* Shayari */
 .shayari{
     font-size:18px;
     margin:20px 0;
@@ -143,46 +97,50 @@ button:hover{ transform:scale(1.05); }
     transition:opacity 1s ease;
 }
 
-/* Final Love Animation BELOW Shayari */
 #loveFinal{
     font-size:28px;
-    position:relative;
     font-weight:bold;
     color:white; 
-    text-shadow:
-      0 0 10px #f0ec0a,
-      0 0 20px #f0ec0a,
-      0 0 40px #f0ec0a;
+    text-shadow:0 0 10px #f0ec0a,0 0 20px #f0ec0a,0 0 40px #f0ec0a;
     opacity:0;
     display:none;
     margin:20px auto;
     transition:opacity 1.5s ease, transform 0.8s ease;
 }
-
 #loveFinal.show{
     opacity:1;
     transform: scale(1.2);
     animation:lovePop 0.8s forwards;
 }
+@keyframes lovePop{0% { transform: scale(0.5); opacity:0; } 50% { transform: scale(1.3); opacity:1; } 100% { transform: scale(1); opacity:1; }}
 
-@keyframes lovePop{
-    0% { transform: scale(0.5); opacity:0; }
-    50% { transform: scale(1.3); opacity:1; }
-    100% { transform: scale(1); opacity:1; }
+#greeting{
+    font-size:28px;
+    font-weight:bold;
+    margin:20px 0;
+    color:#ffeb3b;
+}
+#shareBtn{
+    margin-top:20px; 
+    padding:10px 20px; 
+    font-size:16px; 
+    border-radius:10px; 
+    border:none; 
+    background:#ff4d6d; 
+    color:white; 
+    cursor:pointer;
 }
 
-/* Responsive Fix */
-@media(max-width:500px){
-    .text3d{ font-size:20px; }
-    .shayari{ font-size:16px; }
-    #loveFinal{ font-size:24px; }
-    #wifeImg{ width:90%; max-width:220px; }
+#khushiPic{
+    width:300px;
+    max-width:80%;
+    border-radius:16px;
+    display:none;
+    margin:20px auto;
+    box-shadow:0 0 20px rgba(255,105,180,0.6);
 }
-
-
 </style>
 </head>
-
 <body>
 
 <audio id="fireSound" src="./fireworks.mp3" preload="auto"></audio>
@@ -190,23 +148,10 @@ button:hover{ transform:scale(1.05); }
 <div class="page" id="page1">
 <h1>🎉 Happy New Year 🎉</h1>
 
-<button onclick="enableSound()">🔊 Enable Sound</button>
+<div id="greeting">🎉 Happy New Year My Rani Khushi ❤️ 🎉</div>
 
-<input id="nameInput" placeholder="Aapna Name likho Rani Jan❤️">
-<button onclick="showGreeting()">Show Greeting</button>
-
-<div id="greeting"></div>
-
-<button id="showImgBtn" onclick="showSlider()" style="display:none;">Show Image ❤️</button>
-
-<!-- 🔥 SLIDER -->
-<div class="slider" id="slider" style="display:none;">
-    <div class="slides" id="slides">
-        <img src="./wifey1.jpeg">
-        <img src="./wifey.jpeg">
-        <img src="./wifey2.jpeg">
-    </div>
-</div>
+<button id="showPicBtn" onclick="showPic()">Show Pic ❤️</button>
+<img src="wifey.jpeg" id="khushiPic">
 
 <button id="moreBtn" onclick="goNextPage()" style="display:none;">More Surprise 🎁</button>
 </div>
@@ -217,23 +162,23 @@ button:hover{ transform:scale(1.05); }
 <div class="shayari">1.Calendar badlega, saal badlega,<br>
 Par mera pyaar kabhi nahi badlega ❤️<br>
 Aap meri har subah ho,<br>
-Aur har raat ka sukoon bhi aap hi ho 🌙<br>
-</div>
+Aur har raat ka sukoon bhi aap hi ho 🌙<br></div>
+
 <div class="shayari">2.Is naye saal me bhi<br>
 Mujhe kuch nahi chahiye…<br>
 Bas aapka forever keliye saath, aapki caring,support<br>
-Aur thoda sa aapka gussa chahiye jana🫶❤️<br>
-</div>
+Aur thoda sa aapka gussa chahiye jana🫶❤️<br></div>
 
-<div class="shayari">3.Let's celebrate together<br>Happy New Year meri jaan💛<br>
-meri zindagi, meri rani,<br>
-meri everything 💛<br>
-</div>
+<div class="shayari">3.Let's celebrate together<br>Happy New Year meri jaan💛<br>meri zindagi, meri rani,<br>meri everything 💛<br></div>
 
 <div id="loveFinal">I LOVE YOU TOO MUCH MY WIFEY ❤️<br>
 I AM YOUR'S FOREVER🫶<br>
 I am with you , for you everysec and in every situations of life💛 
 </div>
+
+<button id="shareBtn" onclick="shareWish()">Share Wish 🎉</button>
+<p id="shareText"></p>
+
 </div>
 
 <script>
@@ -245,73 +190,57 @@ function enableSound(){
         soundEnabled=true; 
         alert("Sound Enabled ❤️");
     });
-
 }
 
-function showGreeting(){
-    let name = nameInput.value.trim();
-    if(name.toLowerCase() !== "khushi")
-        return alert("Only for my special person ❤️");
-
-    const text = `Happy New Year My Wifey ${name} 🩷`;
-
-    // 🔥 IMPORTANT: 3D outer + typing inner
-    greeting.innerHTML = `
-        <div class="text3d">
-            <span id="typeText" class="typing"></span>
-        </div>
-    `;
-
-    let i = 0;
-    const speed = 80;
-
-    function type(){
-        if(i < text.length){
-            document.getElementById("typeText").textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-
-    type();               // ⬅️ typing start
-    if(soundEnabled){
-        fireSound.currentTime = 0;
-        fireSound.play();
-    }
-    startFireworks();     // ⬅️ fireworks
-    showImgBtn.style.display="block";
-}
-
-
-
-/* Show Slider */
-function showSlider(){
-    document.getElementById("slider").style.display="block";
-    moreBtn.style.display="block";
+// Show Khushi's pic and More Surprise button
+function showPic(){
+    document.getElementById("khushiPic").style.display="block";
+    document.getElementById("moreBtn").style.display="block";
     startHearts();
 }
 
-/* Auto Slider */
-let index=0;
-const slides=document.getElementById("slides");
-const total=slides.children.length;
+// Next page: shayari + love animation + fireworks
+function goNextPage(){
+    page1.style.left="-100%";
+    page2.style.left="0";
+    showShayarisSequentially();
+    showLove();
+    if(soundEnabled){ fireSound.currentTime=0; fireSound.play();}
+    startFireworks();
+}
 
-setInterval(()=>{
-    index=(index+1)%total;
-    slides.style.transform=`translateX(-${index*100}%)`;
-},2500);
+function showShayarisSequentially(){
+    const shayaris = document.querySelectorAll("#page2 .shayari");
+    let index=0;
+    function showNext(){
+        if(index < shayaris.length){
+            shayaris[index].style.opacity=1;
+            index++;
+            setTimeout(showNext,2000);
+        }
+    }
+    showNext();
+}
 
-/* Swipe Support */
-let startX=0;
-slides.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-slides.addEventListener("touchend",e=>{
-    let endX=e.changedTouches[0].clientX;
-    if(startX-endX>50) index++;
-    if(endX-startX>50) index--;
-    if(index<0) index=total-1;
-    if(index>=total) index=0;
-    slides.style.transform=`translateX(-${index*100}%)`;
-});
+function showLove(){
+    const love = document.getElementById("loveFinal");
+    love.style.display="block";
+    setTimeout(()=>love.classList.add("show"),100);
+    startHearts();
+}
+
+/* Hearts */
+function startHearts(){
+    for(let i=0;i<20;i++){
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*95+"vw";
+        h.style.animationDuration=(3+Math.random()*2.5)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    }
+}
 
 /* Fireworks */
 function launchFirework(){
@@ -333,67 +262,18 @@ function launchFirework(){
     document.body.appendChild(fw);
     setTimeout(()=>fw.remove(),1500);
 }
-function startFireworks(){
-    let i=setInterval(launchFirework,200);
-    setTimeout(()=>clearInterval(i),4000);
+function startFireworks(){ let i=setInterval(launchFirework,200); setTimeout(()=>clearInterval(i),4000); }
+
+/* Share Wish Button */
+function shareWish(){
+    navigator.clipboard.writeText(window.location.href)
+    .then(() => {
+        document.getElementById("shareText").innerText = "Link copied! Share it with your Rani Khushi ❤️";
+    })
+    .catch(() => {
+        document.getElementById("shareText").innerText = "Failed to copy the link!";
+    });
 }
-
-
-/* Next Page */
-function goNextPage(){
-    page1.style.left="-100%";
-    page2.style.left="0";
-    showShayarisSequentially();
-}
-
-function showShayarisSequentially(){
-    const shayaris = document.querySelectorAll("#page2 .shayari");
-    let index=0;
-
-    function showNext(){
-        if(index < shayaris.length){
-            shayaris[index].style.opacity=1;
-            index++;
-            setTimeout(showNext,2000);
-        } else {
-            showLove();
-        }
-    }
-    showNext();
-}
-
-function showLove(){
-    const love = document.getElementById("loveFinal");
-    love.style.display="block";
-    setTimeout(()=>love.classList.add("show"),100);
-    startHearts();
-}
-
-    /* Hearts */
-function startHearts(){
-    for(let i=0;i<20;i++){
-        let h=document.createElement("div");
-        h.className="heart";
-        h.innerHTML="❤️";
-        h.style.left=Math.random()*95+"vw";
-        h.style.animationDuration=(3+Math.random()*2.5)+"s";
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),5000);
-    }
-}
-
-
 </script>
-
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
