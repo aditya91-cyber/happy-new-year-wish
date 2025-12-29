@@ -14,8 +14,6 @@ body{
     margin:0;
     overflow-x:hidden;
 }
-
-/* Pages */
 .page{
     position:absolute;
     width:100%;
@@ -26,8 +24,6 @@ body{
     transition:all 1s ease;
     box-sizing:border-box;
 }
-
-/* PAGE 1 BACKGROUND */
 #page1::before{
     content:"";
     position:absolute;
@@ -36,17 +32,13 @@ body{
     filter:blur(10px);
     z-index:-1;
 }
-
-/* PAGE 2 */
 #page2{
     left:100%;
     background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
     color:white;
     overflow-y:auto;
 }
-
-/* Buttons & Inputs */
-input,button{
+input,button,textarea{
     padding:10px 16px;
     font-size:16px;
     border-radius:10px;
@@ -60,8 +52,6 @@ button{
     cursor:pointer;
 }
 button:hover{ transform:scale(1.05); }
-
-/* 3D Text */
 .text3d{
     font-size:28px;
     color:red;
@@ -76,113 +66,30 @@ button:hover{ transform:scale(1.05); }
     padding-right:6px;
     animation: blink 0.7s infinite;
 }
-
-@keyframes blink{
-    50%{ border-color: transparent; }
-}
-
-    
-/* 🔥 SLIDER (FINAL FIX) */
-.slider{
-    width:100%;
-    max-width:260px;
-    margin:25px auto;
-    overflow:hidden;
-    border-radius:16px;
-    box-shadow:0 0 25px rgba(255,105,180,0.6);
-}
-
-.slides{
-    display:flex;
-    transition:transform 0.6s ease-in-out;
-}
-
-.slides img{
-    width:100%;
-    flex-shrink:0;
-    object-fit:cover;
-    border-radius:16px;
-}
-
-/* Mobile */
-@media(max-width:500px){
-    .slider{ max-width:220px; }
-    .text3d{ font-size:20px; }
-}
-
-/* Hearts */
-.heart{
-    position:fixed;
-    bottom:-20px;
-    font-size:20px;
-    animation:floatUp 5s linear infinite;
-    z-index:9998;
-}
-@keyframes floatUp{
-    to{ transform:translateY(-100vh); opacity:0; }
-}
-
-/* Fireworks */
-.firework{ position:fixed; pointer-events:none; z-index:9999; }
-.spark{
-    position:absolute;
-    width:4px;
-    height:4px;
-    border-radius:50%;
-    animation:shoot 1.4s ease-out forwards;
-}
-@keyframes shoot{
-    to{ transform:translate(var(--x),var(--y)) scale(0.3); opacity:0; }
-}
-
-/* Shayari */
-.shayari{
-    font-size:18px;
-    margin:20px 0;
-    opacity:0;
-    transition:opacity 1s ease;
-}
-
-/* Final Love Animation BELOW Shayari */
+@keyframes blink{50%{ border-color: transparent; }}
 #loveFinal{
     font-size:28px;
     position:relative;
     font-weight:bold;
     color:white; 
-    text-shadow:
-      0 0 10px #f0ec0a,
-      0 0 20px #f0ec0a,
-      0 0 40px #f0ec0a;
+    text-shadow:0 0 10px #f0ec0a,0 0 20px #f0ec0a,0 0 40px #f0ec0a;
     opacity:0;
     display:none;
     margin:20px auto;
     transition:opacity 1.5s ease, transform 0.8s ease;
 }
-
 #loveFinal.show{
     opacity:1;
     transform: scale(1.2);
     animation:lovePop 0.8s forwards;
 }
-
 @keyframes lovePop{
     0% { transform: scale(0.5); opacity:0; }
     50% { transform: scale(1.3); opacity:1; }
     100% { transform: scale(1); opacity:1; }
 }
-
-/* Responsive Fix */
-@media(max-width:500px){
-    .text3d{ font-size:20px; }
-    .shayari{ font-size:16px; }
-    #loveFinal{ font-size:24px; }
-    #wifeImg{ width:90%; max-width:220px; }
-}
-
-
 </style>
 </head>
-
 <body>
 
 <audio id="fireSound" src="./fireworks.mp3" preload="auto"></audio>
@@ -192,128 +99,97 @@ button:hover{ transform:scale(1.05); }
 
 <button onclick="enableSound()">🔊 Enable Sound</button>
 
-<input id="nameInput" placeholder="Aapna Name likho Rani Jan❤️">
-<button onclick="showGreeting()">Show Greeting</button>
+<!-- New Friend Wish Inputs -->
+<input id="userName" placeholder="Your Name">
+<input id="friendName" placeholder="Friend's Name">
+<textarea id="message" placeholder="Type your message (optional)"></textarea>
+<button onclick="showGreeting()">Send Wish</button>
 
 <div id="greeting"></div>
-
-<button id="showImgBtn" onclick="showSlider()" style="display:none;">Show Image ❤️</button>
-
-<!-- 🔥 SLIDER -->
-<div class="slider" id="slider" style="display:none;">
-    <div class="slides" id="slides">
-        <img src="./wifey1.jpeg">
-        <img src="./wifey.jpeg">
-        <img src="./wifey2.jpeg">
-    </div>
-</div>
-
-<button id="moreBtn" onclick="goNextPage()" style="display:none;">More Surprise 🎁</button>
+<button id="copyLinkBtn" onclick="copyLink()" style="display:none;">Copy Share Link</button>
+<p id="copyText"></p>
 </div>
 
 <div class="page" id="page2">
-<h1>💖 My Love For You 💖</h1>
-
-<div class="shayari">1.Calendar badlega, saal badlega,<br>
-Par mera pyaar kabhi nahi badlega ❤️<br>
-Aap meri har subah ho,<br>
-Aur har raat ka sukoon bhi aap hi ho 🌙<br>
-</div>
-<div class="shayari">2.Is naye saal me bhi<br>
-Mujhe kuch nahi chahiye…<br>
-Bas aapka forever keliye saath, aapki caring,support<br>
-Aur thoda sa aapka gussa chahiye jana🫶❤️<br>
-</div>
-
-<div class="shayari">3.Let's celebrate together<br>Happy New Year meri jaan💛<br>
-meri zindagi, meri rani,<br>
-meri everything 💛<br>
-</div>
-
-<div id="loveFinal">I LOVE YOU TOO MUCH MY WIFEY ❤️<br>
-I AM YOUR'S FOREVER🫶<br>
-I am with you , for you everysec and in every situations of life💛 
-</div>
+<h1>💖 Your New Year Wish 💖</h1>
+<div id="wishMessage" class="shayari"></div>
+<div id="loveFinal">🎊 Happy New Year! 🎊</div>
 </div>
 
 <script>
 let soundEnabled=false;
-
 function enableSound(){
     fireSound.play().then(()=>{ 
         fireSound.pause(); 
         soundEnabled=true; 
         alert("Sound Enabled ❤️");
     });
-
 }
 
+// Show greeting with friend's name
 function showGreeting(){
-    let name = nameInput.value.trim();
-    if(name.toLowerCase() !== "khushi")
-        return alert("Only for my special person ❤️");
+    let user = document.getElementById("userName").value.trim();
+    let friend = document.getElementById("friendName").value.trim();
+    let msg = document.getElementById("message").value.trim();
 
-    const text = `Happy New Year My Wifey ${name} 🩷`;
+    if(!user || !friend){
+        return alert("Please enter both names!");
+    }
 
-    // 🔥 IMPORTANT: 3D outer + typing inner
-    greeting.innerHTML = `
+    document.getElementById("greeting").innerHTML = `
         <div class="text3d">
             <span id="typeText" class="typing"></span>
         </div>
     `;
-
-    let i = 0;
-    const speed = 80;
-
-    function type(){
-        if(i < text.length){
-            document.getElementById("typeText").textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
+    const text = `Happy New Year ${friend}! 🎉 - From ${user}${msg ? ": " + msg : ""}`;
+    let i=0; const speed=60;
+    function type(){ 
+        if(i<text.length){ 
+            document.getElementById("typeText").textContent+=text.charAt(i); 
+            i++; setTimeout(type,speed); 
+        } 
     }
+    type();
+    if(soundEnabled){ fireSound.currentTime=0; fireSound.play(); }
+    startFireworks();
 
-    type();               // ⬅️ typing start
-    if(soundEnabled){
-        fireSound.currentTime = 0;
-        fireSound.play();
-    }
-    startFireworks();     // ⬅️ fireworks
-    showImgBtn.style.display="block";
+    // Show Copy Link
+    copyLinkBtn.style.display="block";
+
+    // Update URL parameters
+    const url = new URL(window.location.href);
+    url.searchParams.set('user', user);
+    url.searchParams.set('friend', friend);
+    url.searchParams.set('message', msg);
+    window.history.replaceState({}, '', url);
+
+    // Auto go next page after 2s
+    setTimeout(()=>{ goNextPage(user,friend,msg); }, 2000);
 }
 
+// Auto display if link has parameters
+window.onload = function(){
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get('user');
+    const friend = params.get('friend');
+    const msg = params.get('message');
+    if(user && friend){
+        goNextPage(user,friend,msg);
+    }
+};
 
-
-/* Show Slider */
-function showSlider(){
-    document.getElementById("slider").style.display="block";
-    moreBtn.style.display="block";
+// Next Page Show
+function goNextPage(user,friend,msg){
+    document.getElementById("page1").style.left="-100%";
+    document.getElementById("page2").style.left="0";
+    document.getElementById("wishMessage").innerHTML=`<strong>Happy New Year ${friend}! 🎉</strong><br>From ${user}${msg ? ": "+msg : ""}`;
+    const love = document.getElementById("loveFinal");
+    love.style.display="block";
+    setTimeout(()=>love.classList.add("show"),100);
     startHearts();
 }
 
-/* Auto Slider */
-let index=0;
-const slides=document.getElementById("slides");
-const total=slides.children.length;
-
-setInterval(()=>{
-    index=(index+1)%total;
-    slides.style.transform=`translateX(-${index*100}%)`;
-},2500);
-
-/* Swipe Support */
-let startX=0;
-slides.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-slides.addEventListener("touchend",e=>{
-    let endX=e.changedTouches[0].clientX;
-    if(startX-endX>50) index++;
-    if(endX-startX>50) index--;
-    if(index<0) index=total-1;
-    if(index>=total) index=0;
-    slides.style.transform=`translateX(-${index*100}%)`;
-});
-
-/* Fireworks */
+// Fireworks & Hearts (from your code)
 function launchFirework(){
     let fw=document.createElement("div");
     fw.className="firework";
@@ -333,68 +209,15 @@ function launchFirework(){
     document.body.appendChild(fw);
     setTimeout(()=>fw.remove(),1500);
 }
-function startFireworks(){
-    let i=setInterval(launchFirework,200);
-    setTimeout(()=>clearInterval(i),4000);
+function startFireworks(){ let i=setInterval(launchFirework,200); setTimeout(()=>clearInterval(i),4000); }
+function startHearts(){ for(let i=0;i<20;i++){ let h=document.createElement("div"); h.className="heart"; h.innerHTML="❤️"; h.style.left=Math.random()*95+"vw"; h.style.animationDuration=(3+Math.random()*2.5)+"s"; document.body.appendChild(h); setTimeout(()=>h.remove(),5000); } }
+
+// Copy link function
+function copyLink(){
+    navigator.clipboard.writeText(window.location.href)
+    .then(()=>{ document.getElementById("copyText").innerText="Link copied! Share with your friend."; })
+    .catch(()=>{ document.getElementById("copyText").innerText="Failed to copy link."; });
 }
-
-
-/* Next Page */
-function goNextPage(){
-    page1.style.left="-100%";
-    page2.style.left="0";
-    showShayarisSequentially();
-}
-
-function showShayarisSequentially(){
-    const shayaris = document.querySelectorAll("#page2 .shayari");
-    let index=0;
-
-    function showNext(){
-        if(index < shayaris.length){
-            shayaris[index].style.opacity=1;
-            index++;
-            setTimeout(showNext,2000);
-        } else {
-            showLove();
-        }
-    }
-    showNext();
-}
-
-function showLove(){
-    const love = document.getElementById("loveFinal");
-    love.style.display="block";
-    setTimeout(()=>love.classList.add("show"),100);
-    startHearts();
-}
-
-    /* Hearts */
-function startHearts(){
-    for(let i=0;i<20;i++){
-        let h=document.createElement("div");
-        h.className="heart";
-        h.innerHTML="❤️";
-        h.style.left=Math.random()*95+"vw";
-        h.style.animationDuration=(3+Math.random()*2.5)+"s";
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),5000);
-    }
-}
-
-
 </script>
-
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
