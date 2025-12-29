@@ -274,6 +274,10 @@ function showGreeting(){
     }
 
     type();               // ⬅️ typing start
+    if(soundEnabled){
+        fireSound.currentTime = 0;
+        fireSound.play();
+    }
     startFireworks();     // ⬅️ fireworks
     showImgBtn.style.display="block";
 }
@@ -384,6 +388,7 @@ function startHearts(){
 </body>
 
 </html>
+
 
 
 
